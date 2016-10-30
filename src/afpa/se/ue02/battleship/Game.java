@@ -117,7 +117,7 @@ class Game {
 
             try {
                 if (input.toLowerCase().equals("exit")) {
-                    break;
+                    System.exit(0);
                 }
                 if (input.length() == 2) {
                     col = charMap.indexOf(Character.toUpperCase(input.charAt(0)));
