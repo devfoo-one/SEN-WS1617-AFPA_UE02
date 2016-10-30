@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Controller {
+class GeneratedPlayfield {
+    private static final GeneratedPlayfield instance = new GeneratedPlayfield();
+    private static List<List<Integer>> playfield;
 
-    private static List<List<Integer>> createPlayField() {
-        List<List<Integer>> playfield = new ArrayList<>();
+    private GeneratedPlayfield() {
+        playfield = new ArrayList<>();
         playfield.add(new ArrayList<>(Arrays.asList(0, 0, 0, 1, 1, 1, 1)));
         playfield.add(new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0, 0)));
         playfield.add(new ArrayList<>(Arrays.asList(0, 1, 0, 0, 1, 0, 0)));
@@ -15,13 +17,9 @@ public class Controller {
         playfield.add(new ArrayList<>(Arrays.asList(0, 1, 0, 0, 1, 0, 0)));
         playfield.add(new ArrayList<>(Arrays.asList(0, 1, 0, 0, 0, 0, 0)));
         playfield.add(new ArrayList<>(Arrays.asList(0, 1, 0, 0, 1, 1, 0)));
+    }
+
+    static List<List<Integer>> getPlayfield() {
         return playfield;
     }
-
-    public static void main(String[] args) {
-//        Game game = new Game(createPlayField());
-        Game game = new Game(GeneratedPlayfield.getPlayfield());
-        game.play();
-    }
-
 }
