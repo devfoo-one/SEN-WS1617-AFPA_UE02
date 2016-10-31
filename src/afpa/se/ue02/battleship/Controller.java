@@ -19,8 +19,8 @@ public class Controller {
     }
 
     public static void main(String[] args) {
-//        Game game = new Game(createPlayField());
-        Game game = new Game(GeneratedPlayfield.getPlayfield());
+        Game game = new Game(createPlayField());
+//        Game game = new Game(GeneratedPlayfield.getPlayfield());
         game.play();
     }
 

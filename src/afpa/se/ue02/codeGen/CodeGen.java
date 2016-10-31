@@ -22,8 +22,21 @@ public class CodeGen {
         try {
             BufferedReader br = new BufferedReader(new FileReader(path));
             String currentLine;
+            int lineCounter = 1;
+            int lengthOfFirstLine = 0;
             while ((currentLine = br.readLine()) != null) {
-                lines.add(currentLine.replaceAll("\\D", "")); //Filters all characters but digits.
+                if (lineCounter == 1) {
+                    lengthOfFirstLine = currentLine.length();
+                }
+                if (currentLine.length() != lengthOfFirstLine) {
+                    throw new IllegalArgumentException(String.format("Zeile %d des Modells besitzt eine falsche Länge.", lineCounter));
+                }
+                if (currentLine.matches("[0-1]+")) {
+                    lines.add(currentLine);
+                } else {
+                    throw new IllegalArgumentException(String.format("Zeile %d des Modells enthält ungültige Zeichen.", lineCounter));
+                }
+                lineCounter++;
             }
             br.close();
         } catch (IOException e) {
@@ -61,6 +74,11 @@ public class CodeGen {
         linesOutfile.add("class GeneratedPlayfield {");
         linesOutfile.add("static List<List<Integer>> getPlayfield() {");
         linesOutfile.add("List<List<Integer>> playfield = new ArrayList<>();");
+
+        if (linesInfile.size() == 0) {
+            throw new IllegalArgumentException("Modell ist leer.");
+        }
+
         for (String line : linesInfile) {
             StringBuilder lineBuilder = new StringBuilder("playfield.add(new ArrayList<>(Arrays.asList(");
             List<String> cells = Arrays.asList(line.split(""));
