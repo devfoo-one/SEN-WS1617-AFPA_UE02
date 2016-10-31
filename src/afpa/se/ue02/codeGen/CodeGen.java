@@ -23,7 +23,7 @@ public class CodeGen {
             BufferedReader br = new BufferedReader(new FileReader(path));
             String currentLine;
             while ((currentLine = br.readLine()) != null) {
-                lines.add(currentLine.replaceAll("\\D", ""));
+                lines.add(currentLine.replaceAll("\\D", "")); //Filters all characters but digits.
             }
             br.close();
         } catch (IOException e) {
@@ -59,11 +59,8 @@ public class CodeGen {
         linesOutfile.add("import java.util.Arrays;");
         linesOutfile.add("import java.util.List;");
         linesOutfile.add("class GeneratedPlayfield {");
-        linesOutfile.add("private static final GeneratedPlayfield instance = new GeneratedPlayfield();");
-        linesOutfile.add("private static List<List<Integer>> playfield;");
-        linesOutfile.add("static List<List<Integer>> getPlayfield() {return instance.playfield;}");
-        linesOutfile.add("private GeneratedPlayfield() {");
-        linesOutfile.add("playfield = new ArrayList<>();");
+        linesOutfile.add("static List<List<Integer>> getPlayfield() {");
+        linesOutfile.add("List<List<Integer>> playfield = new ArrayList<>();");
         for (String line : linesInfile) {
             StringBuilder lineBuilder = new StringBuilder("playfield.add(new ArrayList<>(Arrays.asList(");
             List<String> cells = Arrays.asList(line.split(""));
@@ -75,6 +72,7 @@ public class CodeGen {
             lineBuilder.append(")));");
             linesOutfile.add(lineBuilder.toString());
         }
+        linesOutfile.add("return playfield;");
         linesOutfile.add("}");
         linesOutfile.add("}");
         writeFile(linesOutfile, OUTFILE_PATH);

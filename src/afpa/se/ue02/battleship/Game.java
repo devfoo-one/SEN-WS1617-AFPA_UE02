@@ -46,7 +46,7 @@ class Game {
      *
      * @return true if so, false if not.
      */
-    private boolean hasPlayfieldStillShips() {
+    private boolean playfieldStillHasShips() {
         for (List<Integer> line : this.playField) {
             for (Integer x : line) {
                 if (x == 1) {
@@ -109,7 +109,7 @@ class Game {
      */
     void play() {
         System.out.println("\"exit\" eingeben um das Spiel zu beenden.");
-        while (hasPlayfieldStillShips()) {
+        while (playfieldStillHasShips()) {
             String charMap = "ABCDEFGHIJKLMNOPQRSTUVWXZ";
             String input = readFromConsole("Gib deine Schusskoordinaten in Form <Spalte><Zeile> ein: ");
             int row;
