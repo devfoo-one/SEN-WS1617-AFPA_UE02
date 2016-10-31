@@ -22,13 +22,17 @@ public class CodeGen {
         try {
             BufferedReader br = new BufferedReader(new FileReader(path));
             String currentLine;
-            int lineCounter = 1;
+            int lineCounter = 0;
             int lengthOfFirstLine = 0;
             while ((currentLine = br.readLine()) != null) {
+                lineCounter++;
+                if (lineCounter > 26) {
+                    throw new IllegalArgumentException("Modell enthält zu viele Zeilen.");
+                }
                 if (lineCounter == 1) {
                     lengthOfFirstLine = currentLine.length();
                 }
-                if (currentLine.length() != lengthOfFirstLine) {
+                if (currentLine.length() != lengthOfFirstLine || currentLine.length() > 9) {
                     throw new IllegalArgumentException(String.format("Zeile %d des Modells besitzt eine falsche Länge.", lineCounter));
                 }
                 if (currentLine.matches("[0-1]+")) {
@@ -36,7 +40,6 @@ public class CodeGen {
                 } else {
                     throw new IllegalArgumentException(String.format("Zeile %d des Modells enthält ungültige Zeichen.", lineCounter));
                 }
-                lineCounter++;
             }
             br.close();
         } catch (IOException e) {
