@@ -110,8 +110,8 @@ class Game {
     void play() {
         System.out.println("\"exit\" eingeben um das Spiel zu beenden.");
         while (playfieldStillHasShips()) {
-            String charMap = "ABCDEFGHIJKLMNOPQRSTUVWXZ";
-            String input = readFromConsole("Gib deine Schusskoordinaten in Form <Spalte><Zeile> ein: ");
+            String charMap = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            String input = readFromConsole("Gib deine Schusskoordinaten in Form <Zeile><Spalte> ein: ");
             int row;
             int col;
 
@@ -120,9 +120,9 @@ class Game {
                     System.exit(0);
                 }
                 if (input.length() == 2) {
-                    col = charMap.indexOf(Character.toUpperCase(input.charAt(0)));
-                    row = Character.getNumericValue(input.charAt(1));
-                    row--;  //map first element from 1 to 0...
+                    row = charMap.indexOf(Character.toUpperCase(input.charAt(0)));
+                    col = Character.getNumericValue(input.charAt(1));
+                    col--;  //map first element from 1 to 0, 2 to 1, ...
                 } else throw new IllegalArgumentException("Ungültige Eingabe!");
 
             } catch (IllegalArgumentException e) {
